@@ -6,10 +6,24 @@ class Bullet {
         let target = createVector(targetX, targetY);
         let direction = target.sub(this.position);
         this.velocity = direction.limit(this.speed);
+        let temp = this.velocity;
     }
 
     move() {
         this.position = this.position.add(this.velocity);
+    }
+
+    simplify() {
+        let x = this.position.x;
+        let y = this.position.y;
+        let velX = this.velocity.x;
+        let velY = this.velocity.y;
+        return {
+            x,
+            y,
+            velX,
+            velY
+        };
     }
 
     isOutOfScreen() {

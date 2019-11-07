@@ -1,7 +1,7 @@
 class Player {
     constructor(x, y) {
         this.position = createVector(x, y);
-        this.shotCooldown = 1;
+        this.shotCooldown = 0.2;
         this.currentShotCooldown = 0;
         this.size = 80;
         this.speed = 5;
@@ -36,11 +36,32 @@ class Player {
                 this.position.x,
                 this.position.y,
                 mouseX,
-                mouseY,
+                mouseY
             );
             this.currentShotCooldown = this.shotCooldown;
         }
         return bullet ? bullet : false;
+    }
+
+    isHit(bullets) {
+        let distance;
+        let hit = false;
+        bullets.forEach((bullet) => {
+            distance = this.getDistance(
+                bullet.x,
+                bullet.y,
+                player.position.x,
+                player.position.y
+            );
+            if (distance < player.size + 20) {
+                hit = true;
+            }
+        });
+        return hit;
+    }
+
+    getDistance(x1, y1, x2, y2) {
+        return Math.sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
     }
 
     draw() {
